@@ -4,45 +4,45 @@
     <button [routerLink]="['/products/admin']"> Back </button>
   </div>
 
-  <div class="search-hero">
+  <!-- <div class="search-hero">
     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;Type a Product Name">
-  </div>
+  </div> -->
 
-      <p-table [columns]="cols" [value]="productList" [lazy]="true" (onLazyLoad)="nextPage($event)" [paginator]="true"
-          [rows]="5" [totalRecords]="totalRecords" [loading]="loading"
-          [currentPageReportTemplate]="'{currentPage} of {totalPages}'" [showCurrentPageReport]=true>
-          <ng-template pTemplate="header" let-columns>
-            <tr>
-              <th *ngFor="let col of columns">
-                {{col.header}}
-              </th>
-            </tr>
-            <tr>
-              <th>
-              </th>
-              <th>
+  <p-table [columns]="cols" [value]="productList" [lazy]="true" (onLazyLoad)="nextPage($event)" [paginator]="true"
+      [rows]="5" [totalRecords]="totalRecords" [loading]="loading"
+      [currentPageReportTemplate]="'{currentPage} of {totalPages}'" [showCurrentPageReport]=true>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+        </tr>
+        <tr>
+          <th>
+          </th>
+          <th>
 
-                <input pInputText type="text" placeholder="Contains" class="ui-column-filter" style="width: 100%;"
-                  [(ngModel)]="entNameFilter" (focusout)="focusOutFunction(entNameFilter)">
+            <input pInputText type="text" placeholder="Contains" class="ui-column-filter" style="width: 100%;"
+              [(ngModel)]="entNameFilter" (focusout)="focusOutFunction(entNameFilter)">
 
-              </th>
-              <th>
-              </th>
-              <th>
-              </th>
-            </tr>
-          </ng-template>
+          </th>
+          <th>
+          </th>
+          <th>
+          </th>
+        </tr>
+      </ng-template>
 
-          <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr>
-              <td *ngFor="let col of columns">
-                {{rowData[col.field]}}
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+          <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
 
-  <table class="tableWrapper">
+  <!-- <table class="tableWrapper">
     <thead>
       <tr>
         <th>ProductID</th>
@@ -59,11 +59,11 @@
       <td> <button (click)="editHProduct(i)" [routerLink]="['/hProd/admin', HProduct.HardwareID]" > Details </button> </td>
     </tr>
   </tbody>
- </table>
+ </table> -->
 
-  <div>
+  <!-- <div>
       <button  (click)="decCount()" (click) = "this.getData(this.pager.toString())" class="btn btn-default form-control increaseBtn">Previous</button>
       <button  (click)="incCount()" (click) = "this.getData(this.pager.toString())"  class="btn btn-default form-control increaseBtn">Next</button>
-  </div>
+  </div> -->
 
 </div>

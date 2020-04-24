@@ -76,12 +76,12 @@ export class HardwareListAdminComponent implements OnInit {
 
   public initializeDT(){
     
-     this.datasource = this.Hproducts;
-     this.totalRecords = this.Hproducts.length;
-      this.cols = [
-      { field: 'id', name: 'id', header: 'Product ID' },
-      { field: 'productName', name: 'productName', header: 'Product Name' },
-      {field: 'description', name: 'description',header: 'Description'},
+    this.Hproducts.subscribe(data => { this.datasource = data, this.totalRecords = data.length});
+    // this.totalRecords = this.Hproducts.length;
+    this.cols = [
+    { field: 'HardwareID', name: 'HardwareID', header: 'Hardware ID' },
+    { field: 'Product_Name', name: 'Product_Name', header: 'Product Name' },
+    {field: 'Long_Description', name: 'Long_Description',header: 'Description'},
     
      ]
   
@@ -92,10 +92,10 @@ export class HardwareListAdminComponent implements OnInit {
      
      nextPage(event: LazyLoadEvent){
     this.loading = true;
-    event.first = 0
-    event.rows = 3 
-    event.sortField ='' ;
-    event.sortOrder = -1;
+    // event.first = 0
+    // event.rows = 3 
+    // event.sortField ='' ;
+    // event.sortOrder = -1;
     //filters:{}
     //API call here
 

@@ -25,7 +25,7 @@ export class ConnectingToDatabaseService {
   private HprodUrl = `http://localhost:3000/api/HardwareProduct`;  // URL to web api
   private SprodUrl = `http://localhost:3000/api/SoftwareProduct`;  // URL to web api
 
-  public getAllHData() {
+  public getAllHData(): Observable<HProd[]> {
     let url = `${this.HprodUrl}`;
     return this._http.get(url).pipe(map(res => <HProd[]>res.json()));
   }
