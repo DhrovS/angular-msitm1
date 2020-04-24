@@ -7,6 +7,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import {DropdownModule} from 'primeng/dropdown';
+import {ButtonModule} from 'primeng/button';
+import {TabViewModule} from 'primeng/tabview';
+import {TooltipModule} from 'primeng/tooltip';
+import {MenuModule} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
+import { TableModule } from 'primeng/table';
+import { LazyLoadEvent } from 'primeng/primeng';
+
 
 @Component({
   selector: 'app-hardware-list-admin',
@@ -24,6 +33,12 @@ export class HardwareListAdminComponent implements OnInit {
   column: string = 'Product_Name';
   color;
   public HProducts: Array<any> = [];
+
+  datasource: HProd[];
+  productList: HProd[];
+  totalRecords: number;
+  cols: any[];
+  loading: boolean;
 
   constructor(
     
@@ -54,6 +69,44 @@ export class HardwareListAdminComponent implements OnInit {
           throw error;
         }
       )
+  }
+  
+  
+  public Hproducts = this._dbService.getAllHData();
+
+  public initializeDT(){
+    
+     this.datasource = this.Hproducts;
+     this.totalRecords = this.Hproducts.length;
+      this.cols = [
+      { field: 'id', name: 'id', header: 'Product ID' },
+      { field: 'productName', name: 'productName', header: 'Product Name' },
+      {field: 'description', name: 'description',header: 'Description'},
+    
+     ]
+  
+      this.loading = true;
+     
+     }
+     
+     
+     nextPage(event: LazyLoadEvent){
+    this.loading = true;
+    // event.first = 0
+    // event.rows = 3 
+    // event.sortField ='' ;
+    // event.sortOrder = -1;
+    //filters:{}
+    //API call here
+
+   setTimeout(() => {
+    if (this.datasource) {
+        this.productList = this.datasource.slice(event.first, (event.first + event.rows));
+        console.log(` sliced ${this.productList}`);
+        this.loading = false;
+     }
+    }, 1000);
+    
   }
 
   ngOnInit() {

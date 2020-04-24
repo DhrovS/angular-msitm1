@@ -7,6 +7,7 @@ import { User } from '../models/User';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()
@@ -20,6 +21,11 @@ export class ConnectingToDatabaseService {
 
   private HprodUrl = `http://localhost:3000/api/HardwareProduct`;  // URL to web api
   private SprodUrl = `http://localhost:3000/api/SoftwareProduct`;  // URL to web api
+
+  public getAllHData(): Observable<HProd[]> {
+    const url = `${this.HprodUrl}?_size=100`;
+    return this._http.get(url);
+  }
 
   private Userurl = `http://localhost:3000/api/Users`;  // URL to web api
 
