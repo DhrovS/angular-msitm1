@@ -16,6 +16,8 @@ import {MenuItem} from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { LazyLoadEvent } from 'primeng/primeng';
 
+import { BehaviorSubject, Subject, Subscription, EMPTY } from 'rxjs';
+
 
 @Component({
   selector: 'app-hardware-list-admin',
@@ -82,6 +84,8 @@ export class HardwareListAdminComponent implements OnInit {
     { field: 'HardwareID', name: 'HardwareID', header: 'Hardware ID' },
     { field: 'Product_Name', name: 'Product_Name', header: 'Product Name' },
     {field: 'Long_Description', name: 'Long_Description',header: 'Description'},
+    {field: 'Details',name: 'Details', header: 'Details'},
+
     
      ]
   
@@ -94,7 +98,7 @@ export class HardwareListAdminComponent implements OnInit {
     this.loading = true;
     // event.first = 0
     // event.rows = 3 
-    // event.sortField ='' ;
+    event.sortField ='' ;
     // event.sortOrder = -1;
     //filters:{}
     //API call here

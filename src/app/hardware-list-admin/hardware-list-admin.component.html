@@ -10,18 +10,20 @@
 
   <p-table [columns]="cols" [value]="productList" [lazy]="true" (onLazyLoad)="nextPage($event)" [paginator]="true"
       [rows]="5" [totalRecords]="totalRecords" [loading]="loading"
+      [rowsPerPageOptions]="pageSizeOptions" 
+    [defaultSortOrder]="-1" dataKey="vin" [resizableColumns]="true" columnResizeMode="fit"
       [currentPageReportTemplate]="'{currentPage} of {totalPages}'" [showCurrentPageReport]=true>
-      <ng-template pTemplate="header" let-columns>
+      <ng-template pTemplate="header" let-columns let-expanded="expanded">
         <tr>
-          <th *ngFor="let col of columns">
-            {{col.header}}
-          </th>
+          <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
         </tr>
         <tr>
           <th>
           </th>
           <th>
-
             <input pInputText type="text" placeholder="Contains" class="ui-column-filter" style="width: 100%;"
               [(ngModel)]="entNameFilter" (focusout)="focusOutFunction(entNameFilter)">
 
@@ -33,13 +35,41 @@
         </tr>
       </ng-template>
 
-      <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr>
-          <td *ngFor="let col of columns">
-            {{rowData[col.field]}}
-          </td>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"  let-expanded="expanded">
+        <tr [pReorderableRow]="index" [pSelectableRow]="rowData">
+          <td>{{rowData.HardwareID}}</td>
+          <td>{{rowData.Product_Name}}</td>
+          <td>{{rowData.Long_Description}}</td>
+          <td> <button (click)="editHProduct(i)" [routerLink]="['/hProd/admin',rowData.HardwareID]" > Details </button> </td>
         </tr>
-      </ng-template>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+        <tr>
+          <td [attr.colspan]="columns.length + 2">
+                <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                    <div class="ui-g-12 ui-md-3" style="text-align:center">
+                        <img [attr.alt]="rowData.brand" src="assets/showcase/images/demo/car/{{rowData.brand}}.png">
+                    </div>
+                    <div class="ui-g-12 ui-md-9">
+                        <div class="ui-g">
+                            <div class="ui-g-12">
+                                <b>Vin:</b> {{rowData.HardwareID}}
+                            </div>
+                            <div class="ui-g-12">
+                                <b>Year:</b> {{rowData.Product_Name}}
+                            </div>
+                            <div class="ui-g-12">
+                                <b>Brand:</b> {{rowData.Long_Description}}
+                            </div>
+                            <div class="ui-g-12">
+                                <b>Color:</b> {{rowData.Long_Description}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
     </p-table>
 
   <!-- <table class="tableWrapper">
