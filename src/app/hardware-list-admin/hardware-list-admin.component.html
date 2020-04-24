@@ -3,8 +3,9 @@
   <div class="flex-box">
     <button [routerLink]="['/products/admin']"> Back </button>
   </div>
+  
 
-  <p-table [columns]="cols" [value]="productList" [lazy]="!press" (onLazyLoad)="nextPage($event)" [paginator]="true"
+  <p-table #dt [columns]="cols" [value]="productList" [lazy]="true" (onLazyLoad)="nextPage($event)" [paginator]="true"
       [rows]="5" [totalRecords]="totalRecords" [loading]="loading"
       [rowsPerPageOptions]="pageSizeOptions" 
     [defaultSortOrder]="-1" dataKey="vin" [resizableColumns]="true" columnResizeMode="fit"
@@ -13,27 +14,28 @@
       <ng-template pTemplate="caption">
         <div style="text-align: right">        
             <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
-            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
         </div>
     </ng-template>
 
       <ng-template pTemplate="header" let-columns let-expanded="expanded">
         <tr>
-          <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width">
+          <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width" >
                 {{col.header}}
                 <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+
+        
             </th>
         </tr>
         <tr>
           <th>
           </th>
           <th>
-            <input pInputText type="text" placeholder="Contains" class="ui-column-filter" style="width: 100%;"
-              [(ngModel)]="entNameFilter" (focusout)="focusOutFunction(entNameFilter)">
-
+            <input (click)="$event.stopPropagation()" placeholder="Contains" [style.width]="'90%'" pInputText type="text" (onKey)="columnFilter($event, col.field)">
           </th>
         </tr>
       </ng-template>
+      
 
       <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"  let-expanded="expanded">
         <tr [pReorderableRow]="index" [pSelectableRow]="rowData">
