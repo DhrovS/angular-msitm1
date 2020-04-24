@@ -28,8 +28,23 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterAdminComponent } from './register-admin/register-admin.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
+import {DropdownModule} from 'primeng/dropdown';
+import {ButtonModule} from 'primeng/button';
+import {TabViewModule} from 'primeng/tabview';
+import {TooltipModule} from 'primeng/tooltip';
+import {MenuModule} from 'primeng/menu';
+import {MenuItem} from 'primeng/api';
+import { TableModule } from 'primeng/table';
+import { LazyLoadEvent } from 'primeng/primeng';
+
 @NgModule({
   imports: [
+    DropdownModule,
+    ButtonModule,
+    TabViewModule,
+    TooltipModule,
+    MenuModule,
+    TableModule,
     BrowserModule,
     HttpClientModule,
     HttpModule,
@@ -78,6 +93,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     RegisterComponent,
     RegisterAdminComponent
   ],
+  providers:[ ConnectingToDatabaseService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

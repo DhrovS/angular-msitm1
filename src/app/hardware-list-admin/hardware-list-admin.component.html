@@ -8,6 +8,40 @@
     <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;Type a Product Name">
   </div>
 
+      <p-table [columns]="cols" [value]="productList" [lazy]="true" (onLazyLoad)="nextPage($event)" [paginator]="true"
+          [rows]="5" [totalRecords]="totalRecords" [loading]="loading"
+          [currentPageReportTemplate]="'{currentPage} of {totalPages}'" [showCurrentPageReport]=true>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+            </tr>
+            <tr>
+              <th>
+              </th>
+              <th>
+
+                <input pInputText type="text" placeholder="Contains" class="ui-column-filter" style="width: 100%;"
+                  [(ngModel)]="entNameFilter" (focusout)="focusOutFunction(entNameFilter)">
+
+              </th>
+              <th>
+              </th>
+              <th>
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
   <table class="tableWrapper">
     <thead>
       <tr>

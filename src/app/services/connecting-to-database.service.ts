@@ -3,6 +3,8 @@ import { Http } from '@angular/http';
 import { HProd } from '../models/HProd';
 import { SProd } from '../models/SProd';
 import { User } from '../models/User';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+
  
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -13,6 +15,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 @Injectable()
 export class ConnectingToDatabaseService {
   private _http: Http;
+   private httpC: HttpClient;
 
   constructor(private http: Http) {
     this._http = http;
@@ -22,9 +25,9 @@ export class ConnectingToDatabaseService {
   private HprodUrl = `http://localhost:3000/api/HardwareProduct`;  // URL to web api
   private SprodUrl = `http://localhost:3000/api/SoftwareProduct`;  // URL to web api
 
-  public getAllHData(): Observable<HProd[]> {
-    const url = `${this.HprodUrl}?_size=100`;
-    return this._http.get(url);
+  public getAllHData() {
+    let url = `${this.HprodUrl}`;
+    return this._http.get(url).pipe(map(res => <HProd[]>res.json()));
   }
 
   private Userurl = `http://localhost:3000/api/Users`;  // URL to web api

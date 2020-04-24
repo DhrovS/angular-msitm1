@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ConnectingToDatabaseService } from './services/connecting-to-database.service';
+
 
 @Component({
   selector: 'my-app',
