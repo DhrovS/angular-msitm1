@@ -22,6 +22,7 @@
         <tr>
           <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width" >
                 {{col.header}}
+                <input (click)="$event.stopPropagation()" placeholder="Contains" [style.width]="'90%'" pInputText type="text" (keyup.enter)="columnFilter($event, col.field)">
                 <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
 
         
@@ -31,7 +32,9 @@
           <th>
           </th>
           <th>
-            <input (click)="$event.stopPropagation()" placeholder="Contains" [style.width]="'90%'" pInputText type="text" (onKey)="columnFilter($event, col.field)">
+          
+            <!-- <input pInputText type="text" placeholder="Contains" class="ui-column-filter" style="width: 100%;"
+            [(ngModel)]="entNameFilter" (focusout)="focusOutFunction(entNameFilter)"> -->
           </th>
         </tr>
       </ng-template>

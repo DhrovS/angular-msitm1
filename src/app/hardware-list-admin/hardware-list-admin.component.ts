@@ -4,7 +4,7 @@ import { ConnectingToDatabaseService } from '../services/connecting-to-database.
 import { HProd } from '../models/HProd';
 import { products } from '../products';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable,BehaviorSubject, Subject, Subscription, EMPTY } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import {DropdownModule} from 'primeng/dropdown';
@@ -17,8 +17,6 @@ import { TableModule, Table } from 'primeng/table';
 import { LazyLoadEvent,DataView } from 'primeng/primeng';
 import { SelectItem, Message} from 'primeng/primeng';
 
-import { BehaviorSubject, Subject, Subscription, EMPTY } from 'rxjs';
-
 
 @Component({
   selector: 'app-hardware-list-admin',
@@ -29,11 +27,14 @@ import { BehaviorSubject, Subject, Subscription, EMPTY } from 'rxjs';
 
 export class HardwareListAdminComponent implements OnInit {
 
-  @ViewChild('dt', {static: false}) dataTable: Table;
+  @ViewChild('dt', {static: true}) dataTable: Table;
 
-  columnFilter(event: any, field) {
-    this.dataTable.filter(event.target.value, field, 'contains');
-  }
+  private categorySelectedSubject = new BehaviorSubject<number>(0);
+  categorySelectedAction$ = this.categorySelectedSubject.asObservable();
+
+  private errorMessageSubject = new Subject<string>();
+  errorMessage$ = this.errorMessageSubject.asObservable();
+
 
   searchText;
   pager = 0;
@@ -83,6 +84,10 @@ export class HardwareListAdminComponent implements OnInit {
       this.loading = true;
      
      }
+
+    columnFilter(event: any, field) {
+      this.dataTable.filter(event.target.value, field, 'contains');
+    }
      
      
      nextPage(event: LazyLoadEvent){
@@ -91,7 +96,7 @@ export class HardwareListAdminComponent implements OnInit {
     // event.rows = 3 
     // event.sortField ='' ;
     // event.sortOrder = -1;
-    filters:{}
+    // filters:{}
     //API call here
 
    setTimeout(() => {
