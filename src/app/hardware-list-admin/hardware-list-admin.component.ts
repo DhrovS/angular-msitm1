@@ -98,7 +98,7 @@ export class HardwareListAdminComponent implements OnInit {
     this.loading = true;
     // event.first = 0
     // event.rows = 3 
-    event.sortField ='' ;
+    // event.sortField ='' ;
     // event.sortOrder = -1;
     //filters:{}
     //API call here
@@ -114,8 +114,9 @@ export class HardwareListAdminComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getData(this.pager.toString());
+    // this.getData(this.pager.toString());
     this.initializeDT();
+    
     // this.route.queryParams.subscribe(response => this.loadPage('1'));
 
     //  leave it here for rn, let's try in detail first since you already set up by each specific products in detail page.                

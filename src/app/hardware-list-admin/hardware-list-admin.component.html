@@ -4,15 +4,19 @@
     <button [routerLink]="['/products/admin']"> Back </button>
   </div>
 
-  <!-- <div class="search-hero">
-    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="&#61442;Type a Product Name">
-  </div> -->
-
-  <p-table [columns]="cols" [value]="productList" [lazy]="true" (onLazyLoad)="nextPage($event)" [paginator]="true"
+  <p-table [columns]="cols" [value]="productList" [lazy]="!press" (onLazyLoad)="nextPage($event)" [paginator]="true"
       [rows]="5" [totalRecords]="totalRecords" [loading]="loading"
       [rowsPerPageOptions]="pageSizeOptions" 
     [defaultSortOrder]="-1" dataKey="vin" [resizableColumns]="true" columnResizeMode="fit"
-      [currentPageReportTemplate]="'{currentPage} of {totalPages}'" [showCurrentPageReport]=true>
+      [currentPageReportTemplate]="'{currentPage} of {totalPages}'" [showCurrentPageReport]=true [globalFilterFields]="cols" #tt>
+
+      <ng-template pTemplate="caption">
+        <div style="text-align: right">        
+            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+    </ng-template>
+
       <ng-template pTemplate="header" let-columns let-expanded="expanded">
         <tr>
           <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width">
@@ -28,10 +32,6 @@
               [(ngModel)]="entNameFilter" (focusout)="focusOutFunction(entNameFilter)">
 
           </th>
-          <th>
-          </th>
-          <th>
-          </th>
         </tr>
       </ng-template>
 
@@ -43,6 +43,7 @@
           <td> <button (click)="editHProduct(i)" [routerLink]="['/hProd/admin',rowData.HardwareID]" > Details </button> </td>
         </tr>
     </ng-template>
+    
     <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
         <tr>
           <td [attr.colspan]="columns.length + 2">
@@ -53,16 +54,13 @@
                     <div class="ui-g-12 ui-md-9">
                         <div class="ui-g">
                             <div class="ui-g-12">
-                                <b>Vin:</b> {{rowData.HardwareID}}
+                                <b>HardwareID:</b> {{rowData.HardwareID}}
                             </div>
                             <div class="ui-g-12">
-                                <b>Year:</b> {{rowData.Product_Name}}
+                                <b>Product_Name:</b> {{rowData.Product_Name}}
                             </div>
                             <div class="ui-g-12">
-                                <b>Brand:</b> {{rowData.Long_Description}}
-                            </div>
-                            <div class="ui-g-12">
-                                <b>Color:</b> {{rowData.Long_Description}}
+                                <b>Long_Description:</b> {{rowData.Long_Description}}
                             </div>
                         </div>
                     </div>
@@ -71,29 +69,4 @@
         </tr>
     </ng-template>
     </p-table>
-
-  <!-- <table class="tableWrapper">
-    <thead>
-      <tr>
-        <th>ProductID</th>
-        <th>Product Name</th>
-        <th>Short Description</th>
-        <th>Product Details </th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let HProduct of HProducts | filter:searchText">
-      <td class="pointer" (click)="sort('HardwareID')">{{HProduct.HardwareID}}</td>
-      <td class="pointer" (click)="sort('Product_Name')" >{{HProduct.Product_Name}}</td>
-      <td class="pointer" (click)="sort('Short_Description')">{{HProduct.Short_Description}}</td>
-      <td> <button (click)="editHProduct(i)" [routerLink]="['/hProd/admin', HProduct.HardwareID]" > Details </button> </td>
-    </tr>
-  </tbody>
- </table> -->
-
-  <!-- <div>
-      <button  (click)="decCount()" (click) = "this.getData(this.pager.toString())" class="btn btn-default form-control increaseBtn">Previous</button>
-      <button  (click)="incCount()" (click) = "this.getData(this.pager.toString())"  class="btn btn-default form-control increaseBtn">Next</button>
-  </div> -->
-
 </div>
