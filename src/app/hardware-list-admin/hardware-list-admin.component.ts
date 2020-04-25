@@ -85,8 +85,9 @@ export class HardwareListAdminComponent implements OnInit {
      
      }
 
-    columnFilter(event: any, field) {
+    public columnFilter(event: any, field) {
       this.dataTable.filter(event.target.value, field, 'contains');
+      this.dataTable.reset();
     }
      
      
