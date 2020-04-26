@@ -30,6 +30,11 @@ export class ConnectingToDatabaseService {
     return this._http.get(url).pipe(map(res => <HProd[]>res.json()));
   }
 
+  public getHProdSearch(search?: string): Observable<HProd[]> {
+    const url = `${this.HprodUrl}?_where=(Product_Name,like,${search})`;
+    return this._http.get(url).pipe(map(res => <HProd[]>res.json()));
+  }
+
   private Userurl = `http://localhost:3000/api/Users`;  // URL to web api
 
 

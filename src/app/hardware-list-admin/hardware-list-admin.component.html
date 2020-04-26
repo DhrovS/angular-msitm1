@@ -5,11 +5,11 @@
   </div>
   
 
-  <p-table #dt [columns]="cols" [value]="productList" [lazy]="true" (onLazyLoad)="nextPage($event)" [paginator]="true"
-      [rows]="5" [totalRecords]="totalRecords" [loading]="loading"
-      [rowsPerPageOptions]="pageSizeOptions" 
+  <p-table #dt [columns]="cols" [value]="datasource" [paginator]="true"
+      [lazy]="false" 
+      [rows]="5" [totalRecords]="totalRecords" [loading]="loading" [rowsPerPageOptions]="pageSizeOptions" 
     [defaultSortOrder]="-1" [resizableColumns]="true" columnResizeMode="fit"
-      [currentPageReportTemplate]="'{currentPage} of {totalPages}'" [showCurrentPageReport]=true [globalFilterFields]="cols" #tt>
+      [currentPageReportTemplate]="'{currentPage} of {totalPages}'" [showCurrentPageReport]=true [globalFilterFields]="cols">
 
       <ng-template pTemplate="caption">
         <div style="text-align: right">        
@@ -22,7 +22,7 @@
         <tr>
           <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width" >
                 {{col.header}}
-                <input (click)="$event.stopPropagation()" placeholder="Contains" [style.width]="'90%'" pInputText type="text" (keyup.enter)="columnFilter($event, col.field)">
+                <input (click)="$event.stopPropagation()" placeholder="Contains" [style.width]="'90%'" pInputText type="text" (input)="columnFilter($event, col.field)">
                 <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
 
         
@@ -32,8 +32,6 @@
           <th>
           </th>
           <th>
-            <!-- <input pInputText type="text" placeholder="Contains" class="ui-column-filter" style="width: 100%;"
-            [(ngModel)]="entNameFilter" (focusout)="focusOutFunction(entNameFilter)"> -->
           </th>
         </tr>
       </ng-template>

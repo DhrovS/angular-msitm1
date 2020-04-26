@@ -29,11 +29,11 @@ export class HardwareListAdminComponent implements OnInit {
 
   @ViewChild('dt', {static: true}) dataTable: Table;
 
-  private categorySelectedSubject = new BehaviorSubject<number>(0);
-  categorySelectedAction$ = this.categorySelectedSubject.asObservable();
+  // private categorySelectedSubject = new BehaviorSubject<number>(0);
+  // categorySelectedAction$ = this.categorySelectedSubject.asObservable();
 
-  private errorMessageSubject = new Subject<string>();
-  errorMessage$ = this.errorMessageSubject.asObservable();
+  // private errorMessageSubject = new Subject<string>();
+  // errorMessage$ = this.errorMessageSubject.asObservable();
 
 
   searchText;
@@ -68,6 +68,7 @@ export class HardwareListAdminComponent implements OnInit {
   
   public Hproducts = this._dbService.getAllHData();
 
+
   public initializeDT(){
     
     this.Hproducts.subscribe(data => { this.datasource = data, this.totalRecords = data.length});
@@ -84,20 +85,21 @@ export class HardwareListAdminComponent implements OnInit {
       this.loading = true;
      
      }
-
-    public columnFilter(event: any, field) {
+     
+    columnFilter(event: any, field) {
       this.dataTable.filter(event.target.value, field, 'contains');
-      this.dataTable.reset();
+      // this.dataTable.reset();
     }
-     
-     
+    
+      
      nextPage(event: LazyLoadEvent){
     this.loading = true;
     // event.first = 0
     // event.rows = 3 
     // event.sortField ='' ;
     // event.sortOrder = -1;
-    // filters:{}
+    // filters:{this.columnFilter}
+
     //API call here
 
    setTimeout(() => {
@@ -112,9 +114,9 @@ export class HardwareListAdminComponent implements OnInit {
 
   ngOnInit() {
     this.initializeDT();
+    
                
   }
-  
 
 
   changeColorOne() {
