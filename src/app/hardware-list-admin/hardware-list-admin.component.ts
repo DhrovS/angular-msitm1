@@ -77,7 +77,7 @@ export class HardwareListAdminComponent implements OnInit {
     { field: 'HardwareID', name: 'HardwareID', header: 'Hardware ID' },
     { field: 'Product_Name', name: 'Product_Name', header: 'Product Name' },
     {field: 'Long_Description', name: 'Long_Description',header: 'Description'},
-    {field: 'Details',name: 'Details', header: 'Details'},
+    // {field: 'Details',name: 'Details', header: 'Details'},
 
     
      ]

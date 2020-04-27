@@ -1,3 +1,6 @@
+<link rel="stylesheet" type="text/css" href="/node_modules/primeicons/primeicons.css" />
+     <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/nova-light/theme.css" /> 
+     <!-- <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" />  -->
 <div class="tableWrapper" >
 
   <div class="flex-box">
@@ -7,7 +10,7 @@
 
   <p-table #dt [columns]="cols" [value]="datasource" [paginator]="true"
       [lazy]="false" 
-      [rows]="5" [totalRecords]="totalRecords" [loading]="loading" [rowsPerPageOptions]="pageSizeOptions" 
+      [rows]="5"[totalRecords]="totalRecords" [loading]="loading" [rowsPerPageOptions]="pageSizeOptions" 
     [defaultSortOrder]="-1" [resizableColumns]="true" columnResizeMode="fit"
       [currentPageReportTemplate]="'{currentPage} of {totalPages}'" [showCurrentPageReport]=true [globalFilterFields]="cols">
 
@@ -22,17 +25,10 @@
         <tr>
           <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width" >
                 {{col.header}}
-                <input (click)="$event.stopPropagation()" placeholder="Contains" [style.width]="'90%'" pInputText type="text" (input)="columnFilter($event, col.field)">
                 <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
-
+                <input (click)="$event.stopPropagation()" placeholder="Contains" [style.width]="'90%'" pInputText type="text" (input)="columnFilter($event, col.field)">
         
             </th>
-        </tr>
-        <tr>
-          <th>
-          </th>
-          <th>
-          </th>
         </tr>
       </ng-template>
       
