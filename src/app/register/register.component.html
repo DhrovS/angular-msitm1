@@ -3,12 +3,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Please Sign Up</title>
+    <title>Add New Users</title>
   </head>
 
   <div class="jumbotron">
     <div class="container-fluid">
-      <h3 id="copy">Sign Up for a New Account</h3>
+      <h3 id="copy">Add New User to PIM System</h3>
       <br>
       <form  [formGroup]="registerForm" (ngSubmit)="onSubmit()" ngNativeValidate>
           <div class="form-group" id="copy">
@@ -60,12 +60,12 @@
           </div>
           <br>
           <div class="form-group" id="copy">
-              <button [disabled]="loading" class="btn btn-primary">
+              <button [disabled]="loading" class="register-button">
                   <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                   Register
               </button>
-              <button routerLink="/login" class="btn btn-primary">
-                  Cancel and go Back
+              <button  class="register-button" a routerLink="/products/admin"> Cancel and Go Back
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               </button>
           </div>
       </form>

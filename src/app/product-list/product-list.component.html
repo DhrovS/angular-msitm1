@@ -1,14 +1,17 @@
 <div class="product-list">
 
-  <h3> Types of Products </h3>
-  <br>
-  <div *ngFor="let product of products; index as productId">
-    <h3> {{ product.name }} </h3>
-    <p *ngIf="product.description"> Description: {{ product.description }} </p>
-    <button class="btn btn-primary" a [title]="product.name + ' details'" [routerLink]="['/products', productId]"> View all  {{ product.name }} products
-      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-    </button>
-  </div>
+  <div class="centered">
+      <h3> Product Management </h3>
+      <br>
+      <div class="dropdown">
+        <button class="dropbtn"> View All Products </button>
+        <div class="dropdown-content">
+        <a [routerLink]="['/products/0']"> View Hardware Products </a>
+        <a [routerLink]="['/products/1']"> View Software Products </a>
+        <a [routerLink]="['/products/2']"> View Connectivity/Service Products</a>
+        </div>
+      </div>
+  </div>  
 
 </div> 
 

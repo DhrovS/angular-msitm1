@@ -3,27 +3,24 @@ import { Http } from '@angular/http';
 import { HProd } from '../models/HProd';
 import { SProd } from '../models/SProd';
 import { User } from '../models/User';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-
  
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class ConnectingToDatabaseService {
   private _http: Http;
-   private httpC: HttpClient;
 
   constructor(private http: Http) {
     this._http = http;
   }
 
-
   private HprodUrl = `http://localhost:3000/api/HardwareProduct`;  // URL to web api
   private SprodUrl = `http://localhost:3000/api/SoftwareProduct`;  // URL to web api
+
+  private Userurl = `http://localhost:3000/api/Users`;  // URL to web api
 
   public getAllHData(): Observable<HProd[]> {
     let url = `${this.HprodUrl}?_size=100`;
@@ -32,25 +29,17 @@ export class ConnectingToDatabaseService {
 
   public getAllSData(): Observable<SProd[]> {
     let url = `${this.SprodUrl}?_size=100`;
-    return this._http.get(url).pipe(map(res => <Prod[]>res.json()));
+    return this._http.get(url).pipe(map(res => <SProd[]>res.json()));
   }
-
-  public getHProdSearch(search?: string): Observable<HProd[]> {
-    const url = `${this.HprodUrl}?_where=(Product_Name,like,${search})`;
-    return this._http.get(url).pipe(map(res => <HProd[]>res.json()));
-  }
-
-  private Userurl = `http://localhost:3000/api/Users`;  // URL to web api
-
 
   public getUserPage(page?: string) {
-    const url = `${this.Userurl}?_p=${page}&_size=10`;
+    const url = `${this.Userurl}?_p=${page}&_size=100`;
     return this._http.get(url);
   }
-  public getData(page?: string) {
-    const url = `${this.HprodUrl}?_p=${page}&_size=10`;
-    return this._http.get(url);
-  }
+  // public getData(page?: string) {
+  //   const url = `${this.HprodUrl}?_p=${page}&_size=100`;
+  //   return this._http.get(url);
+  // }
 
   public getHProd(id?: string) {
     const url = `${this.HprodUrl}/${id}`;
@@ -61,6 +50,7 @@ export class ConnectingToDatabaseService {
     const url = `${this.HprodUrl}/${id}`;
     return this._http.patch(url,hprod);
   }
+  
   public delHProd(id?: string) {
     const url = `${this.HprodUrl}/${id}`;
     return this._http.delete(url);
@@ -73,15 +63,19 @@ export class ConnectingToDatabaseService {
       return this._http.post(api, hprod);
     }
 
-  public getSoftData(page?: string) {
-    const url = `${this.SprodUrl}?_p=${page}&_size=10`;
-    return this._http.get(url);
-  }
+  // public getSoftData(page?: string) {
+  //   const url = `${this.SprodUrl}?_p=${page}&_size=100`;
+  //   return this._http.get(url);
+  // }
   public getSProd(id?: string) {
     const url = `${this.SprodUrl}/${id}`;
     return this._http.get(url);
   }
 
+  public patchSProd(id?: string,sprod?: SProd) {
+    const url = `${this.SprodUrl}/${id}`;
+    return this._http.patch(url,sprod);
+  }
   public delSProd(id?: string) {
     const url = `${this.SprodUrl}/${id}`;
     return this._http.delete(url);

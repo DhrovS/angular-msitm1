@@ -1,0 +1,37 @@
+<div class="tableWrapper" >
+
+  <div class="search-hero">
+    <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search by User Name">
+  </div>
+
+  <table class="tableWrapper">
+    <thead>
+      <tr>
+        <th >User Name</th>
+        <th >First</th>
+        <th >Last Name</th>
+        <th>Email </th>
+        <th> User Role </th>
+        <th ></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of Users | filter:searchText | paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+        <td> {{user.UserName}} </td>
+        <td> {{user.FirstName}} </td>
+        <td> {{user.LastName}} </td>
+        <td> {{user.Email}} </td>
+        <td> {{user.UserRole}} </td>
+      </tr>
+    </tbody>
+  </table>
+
+<div class="flex-box">
+  <button [routerLink]="['/products/admin']"> Back </button>
+</div>
+
+<div class="pagination">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>   
+
+</div>

@@ -1,19 +1,20 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ConnectingToDatabaseService } from "../services/connecting-to-database.service";
-import { AlertService } from "../services/alert.service";
+import { HProd } from '../../models/HProd';
+import { ConnectingToDatabaseService } from "../../services/connecting-to-database.service";
+import { AlertService} from "../../services/alert.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: [ "./register.component.css" ],
+  selector: "app-AddHardProduct",
+  templateUrl: "./AddHardProduct.component.html",
+  styleUrls: ["./AddHardProduct.component.css"],
   providers: [ ConnectingToDatabaseService, AlertService ]
 })
-export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
+export class AddHardProductComponent implements OnInit {
+  HProdForm: FormGroup;
   loading = false;
   submitted = false;
   color;
@@ -26,16 +27,16 @@ export class RegisterComponent implements OnInit {
   private alertService: AlertService) {}
 
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({
-            UserName: ['', Validators.required],
-            UserRole: ['', Validators.required],
-            FirstName: ['', Validators.required],
-            LastName: ['', Validators.required],
-            Email: ['', Validators.required],
-            Password: ['', Validators.required]
+    this.HProdForm = this.formBuilder.group({
+            Product_Name: ['', Validators.required],
+            Short_Description: ['', Validators.required],
+            Long_Description: ['', Validators.required],
+            SKU: ['', [Validators.required, Validators.minLength(6)]],Tax_Category: ['', Validators.required],
+            Gift_Wrappable: ['', Validators.required],
+            Image_URL: ['', Validators.required]
         });
   }
-  get f() { return this.registerForm.controls; }
+  get f() { return this.HProdForm.controls; }
 
   onSubmit() {
     this.submitted = true;
@@ -46,12 +47,12 @@ export class RegisterComponent implements OnInit {
     //     }
     this.loading = true;
 
-    this._dbService.putUserData('http://localhost:3000/api/Users',this.registerForm.value)
+    this._dbService.putData('http://localhost:3000/api/HardwareProduct',this.HProdForm.value)
     .pipe(first())
       .subscribe(
           data => {
               this.alertService.success('Registration successful', true);
-              this.router.navigate(['/alluser'])
+              this.router.navigate(['/products/admin'])
               
           },
           error => {

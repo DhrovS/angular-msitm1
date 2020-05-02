@@ -1,0 +1,70 @@
+<link rel="stylesheet" type="text/css" href="/node_modules/primeicons/primeicons.css" />
+     <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/themes/nova-light/theme.css" /> 
+     <!-- <link rel="stylesheet" type="text/css" href="/node_modules/primeng/resources/primeng.min.css" />  -->
+<div class="tableWrapper" >
+
+  <div class="flex-box">
+    <button [routerLink]="['/products']"> Back </button>
+  </div>
+  
+
+  <p-table #dt [columns]="cols" [value]="datasource" [paginator]="true"
+      [lazy]="false" 
+      [rows]="5" [totalRecords]="totalRecords" [loading]="loading" [rowsPerPageOptions]="pageSizeOptions" 
+    [defaultSortOrder]="-1" [resizableColumns]="true" columnResizeMode="fit"
+      [currentPageReportTemplate]="'{currentPage} of {totalPages}'" [showCurrentPageReport]=true [globalFilterFields]="cols">
+
+      <ng-template pTemplate="caption">
+        <div style="text-align: right">        
+            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+    </ng-template>
+
+      <ng-template pTemplate="header" let-columns let-expanded="expanded">
+        <tr>
+          <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width" >
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+                <input (click)="$event.stopPropagation()" placeholder="Contains" [style.width]="'90%'" pInputText type="text" (input)="columnFilter($event, col.field)">
+        
+            </th>
+        </tr>
+      </ng-template>
+      
+
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex"  let-expanded="expanded">
+        <tr [pReorderableRow]="index" [pSelectableRow]="rowData">
+          <td>{{rowData.SoftwareID}}</td>
+          <td>{{rowData.Product_Name}}</td>
+          <td>{{rowData.Long_Description}}</td>
+          <td> <button (click)="editHProduct(i)" [routerLink]="['/sProd/',rowData.SoftwareID]" > Details </button> </td>
+        </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+        <tr>
+          <td [attr.colspan]="columns.length + 2">
+                <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                    <div class="ui-g-12 ui-md-3" style="text-align:center">
+                        <img [attr.alt]="rowData.brand" src="assets/showcase/images/demo/car/{{rowData.brand}}.png">
+                    </div>
+                    <div class="ui-g-12 ui-md-9">
+                        <div class="ui-g">
+                            <div class="ui-g-12">
+                                <b>SoftwareID:</b> {{rowData.SoftwareID}}
+                            </div>
+                            <div class="ui-g-12">
+                                <b>Product_Name:</b> {{rowData.Product_Name}}
+                            </div>
+                            <div class="ui-g-12">
+                                <b>Long_Description:</b> {{rowData.Long_Description}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+    </p-table>
+</div>

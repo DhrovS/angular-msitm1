@@ -1,18 +1,51 @@
 <div class="product-list-admin">
 
-  <h3> Types of Products </h3>
-  <br>
-  <div *ngFor="let product of products; index as productId">
-    <h3> {{ product.name }} </h3>
-    <p *ngIf="product.description"> Description: {{ product.description }} </p>
-    <button class="btn btn-primary" a [title]="product.name + ' details'" [routerLink]="['/products/admin', productId]"> View all  {{ product.name }} products
-      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-    </button> or
-    <button class="btn btn-primary" [routerLink]="['/Edit', productId]" > Add New {{ product.name }} Product </button>
+  <div class="split left">
+    <div class="centered">
+      <h3> Product Management </h3>
+      <br>
+      <div class="dropdown">
+        <button class="dropbtn"> View All Products </button>
+        <div class="dropdown-content">
+        <a [routerLink]="['/products/admin/0']"> View Hardware Products </a>
+        <a [routerLink]="['/products/admin/1']"> View Software Products </a>
+        <a [routerLink]="['/products/admin/2']"> View Connectivity/Service Products</a>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="dropdown">
+        <button class="dropbtn"> Add New Products </button>
+        <div class="dropdown-content">
+        <a [routerLink]="['/Edit/0']"> Add New Hardware Products </a>
+        <a [routerLink]="['/Edit/1']"> Add New Software Products </a>
+        <a [routerLink]="['/Edit/2']"> Add New Connectivity/Service Products</a>
+        </div>
+      </div>
+    </div>  
   </div>
 
-    <h3> List of Users </h3>
-    
-    <button class="btn btn-primary" [routerLink]="['/register/admin']" > View all </button>
+  <div class="split right">
+    <div class="centered">
+      <h3> User Management </h3>
+      <br>
+      <button class="btn btn-primary" a routerLink="/register"> Add New User
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      </button>
+      <br>
+      <br>
+      <button class="btn btn-primary" [routerLink]="['/alluser']" > View all Users </button>
+    </div>
+  </div>  
 
 </div> 
+
+
+<!-- <div *ngFor="let product of products; index as productId">
+  <h3> {{ product.name }} </h3>
+  <p *ngIf="product.description"> Description: {{ product.description }} </p>
+  <button class="btn btn-primary" a [title]="product.name + ' details'" [routerLink]="['/products/admin', productId]"> View all  {{ product.name }} products
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+  </button> or
+  <button class="btn btn-primary" [routerLink]="['/Edit', productId]" > Add New {{ product.name }} Product </button>
+</div> -->
